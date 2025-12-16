@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tugas 4 - TSP Algoritma Genetika</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+
+    <header class="sticky-header">
+        <div class="logo">
+            TUGAS 4: TSP
+        </div>
+        <nav>
+            <a href="{{ url_for('index') }}" class="menu-btn">🏠 Home</a>
+            <a href="{{ url_for('tugas_3') }}" class="menu-btn">🎒 Tugas 3</a>
+            <a href="{{ url_for('tugas_5') }}" class="menu-btn">🧠 Tugas 5</a> </nav>
+            <a href="#simulasi" class="menu-btn">🚀 Simulasi TSP</a>
+        </nav>
+    </header>
+
+    <main>
+        <section class="content-card info-card">
+            <h2>🗺️ Traveling Salesperson Problem (TSP)</h2>
+            <p>
+                Menggunakan data dari Excel (5 Kota: A, B, C, D, E). 
+                Tujuannya adalah mencari rute terpendek untuk mengunjungi semua kota tepat satu kali dan kembali ke kota awal.
+            </p>
+        </section>
+
+        <section id="simulasi" class="content-card form-card">
+            <h2>⚙️ Pengaturan Simulasi TSP</h2>
+            <form method="POST" action="{{ url_for('tugas_4') }}">
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label for="pop_size">Ukuran Populasi</label>
+                        <input type="number" id="pop_size" name="pop_size" value="{{ settings.pop_size if settings else 100 }}">
+                    </div>
+                    <div class="form-group">
+                        <label for="generations">Jumlah Generasi</label>
+                        <input type="number" id="generations" name="generations" value="{{ settings.generations if settings else 50 }}">
+                    </div>
+                    <div class="form-group">
+                        <label for="crossover_rate">Crossover Rate (PC)</label>
+                        <input type="number" step="0.01" id="crossover_rate" name="crossover_rate" value="{{ settings.crossover_rate if settings else 0.9 }}">
+                    </div>
+                    <div class="form-group">
+                        <label for="mutation_rate">Mutation Rate (PM)</label>
+                        <input type="number" step="0.01" id="mutation_rate" name="mutation_rate" value="{{ settings.mutation_rate if settings else 0.2 }}">
+                    </div>
+                    <div class="form-group">
+                        <label for="seed">Random Seed</label>
+                        <input type="number" id="seed" name="seed" value="{{ settings.seed if settings else 42 }}">
+                    </div>
+                </div>
+                
+                <div class="checkbox-group">
+                    <input type="checkbox" id="elitism" name="elitism" {% if not settings or settings.elitism %}checked{% endif %}>
+                    <label for="elitism">Gunakan Elitism (Simpan individu terbaik)</label>
+                </div>
+                
+                <button type="submit" class="submit-btn">Jalankan Simulasi TSP</button>
+            </form>
+        </section>
+
+        {% if result %}
+        <section class="content-card result-card">
+            <h2>🏆 Rute Terbaik Ditemukan</h2>
+            <p>Kromosom (Indeks): <code>{{ result.chromosome }}</code></p>
+            <div class="metric-grid" style="grid-template-columns: 1fr 1fr;">
+                <div style="grid-column: span 2; text-align: center; font-size: 1.2rem; font-weight: bold; color: #00faff;">
+                    <span>Rute Perjalanan</span><br>
+                    {{ result.route }}
+                </div>
+                <div>
+                    <span>Total Jarak</span>
+                    {{ result.distance }} km/satuan
+                </div>
+                <div>
+                    <span>Fitness</span>
+                    (Minimasi Jarak)
+                </div>
+            </div>
+        </section>
+
+        <section class="content-card log-card">
+            <h2>📝 Log Generasi</h2>
+            <pre>
+{% for log in logs -%}
+Generasi {{ log.gen }}:
+Rute: {{ log.route }} | Jarak: {{ log.distance }}
+-----------------------------------------------------------------
+{% endfor -%}
+            </pre>
+        </section>
+        {% else %}
+        <section class="content-card info-card">
+            <p>Klik "Jalankan Simulasi TSP" untuk memulai pencarian rute terpendek.</p>
+        </section>
+        {% endif %}
+
+    </main>
+
+    <footer>
+        <p>&copy; 2024 Ahmadi Hasan - Tugas 4 Soft Computing</p>
+    </footer>
+
+</body>
+</html>

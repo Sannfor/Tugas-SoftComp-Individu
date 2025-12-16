@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tugas 3 - Simulasi GA</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+
+    <header class="sticky-header">
+        <div class="logo">
+            TUGAS 3: Algoritma Genetika
+        </div>
+        <nav>
+            <a href="{{ url_for('index') }}" class="menu-btn">🏠 Home</a>
+            <a href="{{ url_for('tugas_4') }}" class="menu-btn">🗺️ Tugas 4</a> 
+            <a href="{{ url_for('tugas_5') }}" class="menu-btn">🧠 Tugas 5</a> </nav>
+            <a href="#simulasi" class="menu-btn">🚀 Simulasi</a>
+        </nav>
+    </header>
+
+    <main>
+        <section id="simulasi" class="content-card form-card">
+            <h2>⚙️ Pengaturan Simulasi</h2>
+            <form method="POST" action="{{ url_for('tugas_3') }}">
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label for="pop_size">Ukuran Populasi</label>
+                        <input type="number" id="pop_size" name="pop_size" value="{{ settings.pop_size if settings else 8 }}">
+                    </div>
+                    <div class="form-group">
+                        <label for="generations">Jumlah Generasi</label>
+                        <input type="number" id="generations" name="generations" value="{{ settings.generations if settings else 2 }}">
+                    </div>
+                    <div class="form-group">
+                        <label for="crossover_rate">Crossover Rate</label>
+                        <input type="number" step="0.01" min="0" max="1" id="crossover_rate" name="crossover_rate" value="{{ settings.crossover_rate if settings else 0.8 }}">
+                    </div>
+                    <div class="form-group">
+                        <label for="mutation_rate">Mutation Rate</label>
+                        <input type="number" step="0.01" min="0" max="1" id="mutation_rate" name="mutation_rate" value="{{ settings.mutation_rate if settings else 0.1 }}">
+                    </div>
+                    <div class="form-group">
+                        <label for="seed">Random Seed</label>
+                        <input type="number" id="seed" name="seed" value="{{ settings.seed if settings else 16 }}">
+                    </div>
+                    <div class="form-group checkbox-group">
+                        <input type="checkbox" id="elitism" name="elitism" {% if (settings and settings.elitism) or (not settings) %}checked{% endif %}>
+                        <label for="elitism">Gunakan Elitism</label>
+                    </div>
+                </div>
+                <button type="submit" class="submit-btn">Jalankan Simulasi</button>
+            </form>
+        </section>
+
+        {% if result %}
+        <section class="content-card result-card">
+            <h2>🏆 Hasil Akhir Terbaik</h2>
+            <p>Kromosom: <code>{{ result.chromosome }}</code></p>
+            <p>Item Terpilih: <code>{{ result.items }}</code></p>
+            <div class="metric-grid">
+                <div>
+                    <span>Total Berat</span>
+                    {{ result.weight }} kg
+                </div>
+                <div>
+                    <span>Total Nilai</span>
+                    ${{ result.value }}
+                </div>
+                <div>
+                    <span>Fitness</span>
+                    {{ result.fitness }}
+                </div>
+            </div>
+        </section>
+
+        <section class="content-card log-card">
+            <h2>📝 Log Generasi</h2>
+            <pre>
+{% for log in logs -%}
+Generasi {{ log.gen }}:
+Terbaik: {{ log.chrom }} | Item: {{ log.items }} | Berat: {{ log.weight }} | Nilai: {{ log.value }} | Fitness: {{ log.fitness }}
+-----------------------------------------------------------------
+{% endfor -%}
+            </pre>
+        </section>
+        {% else %}
+        <section class="content-card info-card">
+            <p>Klik "Jalankan Simulasi" untuk memulai.</p>
+        </section>
+        {% endif %}
+
+    </main>
+
+</body>
+</html>

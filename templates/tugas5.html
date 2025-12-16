@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tugas 5 - ANFIS Sugeno</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+
+    <header class="sticky-header">
+        <div class="logo">
+            TUGAS 5: ANFIS Sugeno
+        </div>
+        <nav>
+            <a href="{{ url_for('index') }}" class="menu-btn">🏠 Home</a>
+            <a href="{{ url_for('tugas_3') }}" class="menu-btn">🎒 Tugas 3</a>
+            <a href="{{ url_for('tugas_4') }}" class="menu-btn">🗺️ Tugas 4</a>
+            <a href="#simulasi" class="menu-btn">🚀 Simulasi</a> 
+        </nav>
+    </header>
+
+    <main>
+        <section class="content-card info-card">
+            <h2>🧠 ANFIS (Adaptive Neuro-Fuzzy Inference System)</h2>
+            <p>
+                Implementasi penghitungan manual ANFIS model Sugeno Orde-1.
+                <br>
+                <strong>Rule 1:</strong> f1 = 0.1x + 0.1y + 0.1 <br>
+                <strong>Rule 2:</strong> f2 = 10x + 10y + 10
+            </p>
+        </section>
+
+        <section id="simulasi" class="content-card form-card">
+            <h2>⚙️ Input Variabel</h2>
+            <form method="POST" action="{{ url_for('tugas_5') }}">
+                <div class="form-grid">
+                    <div class="form-group">
+                        <label for="x">Nilai X</label>
+                        <input type="number" step="any" id="x" name="x" value="{{ inputs.x }}" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="y">Nilai Y</label>
+                        <input type="number" step="any" id="y" name="y" value="{{ inputs.y }}" required>
+                    </div>
+                </div>
+                <button type="submit" class="submit-btn">Hitung ANFIS</button>
+            </form>
+        </section>
+
+        {% if result %}
+        <section class="content-card result-card">
+            <h2>🏆 Hasil Perhitungan</h2>
+            
+            <div class="metric-grid" style="grid-template-columns: repeat(2, 1fr); text-align: left;">
+                <div style="grid-column: span 2;">
+                    <strong>Layer 1: Fuzzifikasi (Premis)</strong><br>
+                    <small>Asumsi nilai keanggotaan (Hardcoded)</small><br>
+                    A1 = {{ result.A1 }} &nbsp;|&nbsp; B1 = {{ result.B1 }}<br>
+                    A2 = {{ result.A2 }} &nbsp;|&nbsp; B2 = {{ result.B2 }}
+                </div>
+
+                <div>
+                    <strong>Layer 2: Firing Strength (w)</strong><br>
+                    w1 = {{ result.w1 }}<br>
+                    w2 = {{ result.w2 }}
+                </div>
+
+                <div>
+                    <strong>Layer 3: Normalisasi (W)</strong><br>
+                    W1 = {{ result.W1 }}<br>
+                    W2 = {{ result.W2 }}
+                </div>
+
+                <div style="grid-column: span 2;">
+                    <strong>Layer 4: Konsekuen (Sugeno)</strong><br>
+                    f1(x,y) = {{ result.f1_val }} &rarr; <strong>Out1</strong> = {{ result.out1 }}<br>
+                    f2(x,y) = {{ result.f2_val }} &rarr; <strong>Out2</strong> = {{ result.out2 }}
+                </div>
+
+                <div style="grid-column: span 2; background-color: rgba(0, 250, 255, 0.1); border-color: #ff00ff; text-align: center;">
+                    <strong style="color: #ff00ff; font-size: 1.2rem;">OUTPUT AKHIR (Z)</strong><br>
+                    <span style="font-size: 2rem; font-weight: bold;">{{ result.final_output }}</span>
+                </div>
+            </div>
+        </section>
+        {% endif %}
+
+    </main>
+
+    <footer>
+        <p>&copy; 2024 Ahmadi Hasan - Tugas 5 Soft Computing</p>
+    </footer>
+
+</body>
+</html>

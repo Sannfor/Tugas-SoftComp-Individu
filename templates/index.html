@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tugas 1 - Soft Computing</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+
+    <header class="sticky-header">
+        <div class="logo">
+            TUGAS 1: Soft Computing
+        </div>
+        <nav>
+            <a href="#daftar-isi" class="menu-btn">☰ Daftar Isi</a>
+            <a href="{{ url_for('tugas_3') }}" class="menu-btn">🚀 Tugas 3</a>
+            <a href="{{ url_for('tugas_4') }}" class="menu-btn">🗺️ Tugas 4</a> 
+            <a href="{{ url_for('tugas_5') }}" class="menu-btn">🧠 Tugas 5</a> <input type="search" id="search-input" placeholder="Cari materi...">
+        </nav>
+    </header>
+
+    <main>
+        <section id="daftar-isi" class="content-card">
+            <h2>Daftar Isi</h2>
+            <ul>
+                <li><a href="#fuzzy">Logika Fuzzy (Fuzzy Logic)</a></li>
+                <li><a href="#ann">Jaringan Syaraf Tiruan (ANN)</a></li>
+                <li><a href="#genetika">Algoritma Genetika (Genetic Algorithm)</a></li>
+                <li><a href="{{ url_for('tugas_5') }}">Simulasi ANFIS (Tugas 5)</a></li>
+            </ul>
+        </section>
+
+        <section id="fuzzy" class="content-card searchable-card">
+            <h2>1. Logika Fuzzy (Fuzzy Logic)</h2>
+            <h3>Pengertian</h3>
+            <p>
+                Logika Fuzzy adalah suatu metodologi komputasi yang didasarkan pada "derajat kebenaran" (degrees of truth), bukan pada logika biner "benar atau salah" (1 atau 0) yang biasa digunakan. Logika ini dirancang untuk meniru cara berpikir manusia yang mampu menangani ketidakpastian, ketidakjelasan (vagueness), dan ambiguitas.
+            </p>
+            <h3>Kelebihan</h3>
+            <ul>
+                <li>Sangat fleksibel dan toleran terhadap data yang tidak presisi.</li>
+                <li>Mampu memodelkan fungsi non-linier yang kompleks.</li>
+                <li>Dapat dibangun di atas pengalaman para ahli (expert knowledge).</li>
+                <li>Mudah dipahami karena konsepnya mirip bahasa manusia (misal: 'agak panas', 'cukup cepat').</li>
+            </ul>
+            <h3>Kekurangan</h3>
+            <ul>
+                <li>Membutuhkan proses 'tuning' (penyesuaian) fungsi keanggotaan dan aturan yang bisa jadi rumit.</li>
+                <li>Tidak ada metodologi standar untuk mendesain sistem fuzzy.</li>
+                <li>Verifikasi dan validasi sistem bisa jadi sulit dilakukan.</li>
+                <li>Dapat menjadi komputasi yang intensif jika jumlah aturan sangat banyak.</li>
+            </ul>
+        </section>
+
+        <section id="ann" class="content-card searchable-card">
+            <h2>2. Jaringan Syaraf Tiruan (Artificial Neural Network)</h2>
+            <h3>Pengertian</h3>
+            <p>
+                Jaringan Syaraf Tiruan (ANN) adalah model komputasi yang terinspirasi oleh struktur dan fungsi otak biologis manusia. ANN terdiri dari kumpulan unit pemrosesan yang saling terhubung, yang disebut 'neuron', yang bekerja bersama untuk memecahkan masalah tertentu. ANN belajar dari data contoh (training data) untuk mengenali pola, membuat klasifikasi, atau prediksi.
+            </p>
+            <h3>Kelebihan</h3>
+            <ul>
+                <li>Kemampuan belajar adaptif; dapat belajar dari data dan meningkatkan kinerjanya.</li>
+                <li>Sangat baik dalam pengenalan pola (pattern recognition) yang kompleks.</li>
+                <li>Toleran terhadap kesalahan (fault tolerance); kerusakan sebagian kecil jaringan tidak menghentikan keseluruhan sistem.</li>
+                <li>Mampu melakukan generalisasi dari data yang belum pernah dilihat sebelumnya.</li>
+            </ul>
+            <h3>Kekurangan</h3>
+            <ul>
+                <li>Membutuhkan data pelatihan (training data) yang besar dan berkualitas tinggi.</li>
+                <li>Proses pelatihan bisa memakan waktu sangat lama (komputasi mahal).</li>
+                <li>Bersifat "kotak hitam" (black box); sulit untuk memahami *bagaimana* ANN sampai pada suatu keputusan.</li>
+                <li>Rentan terhadap 'overfitting' jika tidak dirancang dengan baik.</li>
+            </ul>
+        </section>
+
+        <section id="genetika" class="content-card searchable-card">
+            <h2>3. Algoritma Genetika (Genetic Algorithm)</h2>
+            <h3>Pengertian</h3>
+            <p>
+                Algoritma Genetika (GA) adalah teknik pencarian dan optimasi yang terinspirasi dari proses evolusi biologis, seperti seleksi alam, persilangan (crossover), dan mutasi. GA bekerja dengan sekumpulan 'populasi' solusi potensial ('kromosom') dan secara iteratif mengembangkannya untuk menemukan solusi terbaik (paling 'fit') terhadap suatu masalah.
+            </p>
+            <h3>Kelebihan</h3>
+            <ul>
+                <li>Sangat kuat untuk mencari solusi optimal atau mendekati optimal dalam ruang pencarian yang sangat besar.</li>
+                <li>Tidak mudah terjebak dalam 'lokal optima' (solusi yang baik tapi bukan yang terbaik).</li>
+                <li>Dapat diterapkan pada berbagai jenis masalah optimasi yang kompleks.</li>
+                <li>Relatif mudah untuk diparalelkan proses komputasinya.</li>
+            </ul>
+            <h3>Kekurangan</h3>
+            <ul>
+                <li>Konvergensi bisa lambat; menemukan solusi terbaik bisa memakan waktu lama.</li>
+                <li>Membutuhkan penentuan parameter yang tepat (ukuran populasi, laju mutasi, dll) yang bisa jadi sulit.</li>
+                <li>Tidak ada jaminan akan menemukan solusi optimal global (solusi terbaik mutlak).</li>
+                <li>Representasi 'kromosom' (solusi) untuk masalah tertentu bisa jadi rumit untuk dirancang.</li>
+            </ul>
+        </section>
+    </main>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const searchInput = document.getElementById('search-input');
+            const cards = document.querySelectorAll('.searchable-card');
+            const originalCardHTML = new Map();
+            cards.forEach(card => {
+                originalCardHTML.set(card.id, card.innerHTML);
+            });
+            function escapeRegExp(string) {
+                return string.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+            }
+            searchInput.addEventListener('input', (event) => {
+                const query = event.target.value.toLowerCase().trim();
+                const escapedQuery = escapeRegExp(query);
+                const regex = new RegExp(escapedQuery, 'gi');
+                cards.forEach(card => {
+                    const originalHTML = originalCardHTML.get(card.id);
+                    const cardText = card.textContent.toLowerCase();
+                    const isMatch = cardText.includes(query);
+                    if (isMatch) {
+                        card.style.display = 'block';
+                        if (query) {
+                            const newHTML = originalHTML.replace(regex, (match) => {
+                                return `<mark>${match}</mark>`;
+                            });
+                            card.innerHTML = newHTML;
+                        } else {
+                            card.innerHTML = originalHTML;
+                        }
+                    } else {
+                        card.style.display = 'none';
+                        card.innerHTML = originalHTML;
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>
