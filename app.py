@@ -204,7 +204,6 @@ def f2(x, y):
     return 10 * x + 10 * y + 10
 
 def anfis_calculate(x, y):
-    # Logika persis dari main.py
     A1 = 0.5
     B1 = 0.1
     A2 = 0.25
